@@ -98,6 +98,6 @@ RUN cd proteus && PATH=/usr/bin:$PATH which python && PATH=/usr/bin:$PATH make d
 
 USER root
 
-RUN /home/$NB_USER/proteus/linux2/bin/jupyter kernelspec install-self  && jupyter kernelspec list 
+RUN /home/$NB_USER/notebooks/proteus/linux2/bin/jupyter kernelspec install-self  && jupyter kernelspec list 
 
 USER main
