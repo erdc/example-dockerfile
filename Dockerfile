@@ -84,7 +84,6 @@ RUN git clone https://github.com/hashdist/hashdist -b cekees/add_bld_mirrors &&\
     ./hashdist/bin/hit remote add https://dl.dropboxusercontent.com/u/26353144/hashdist_jovyan_rackspace --objects="build" &&\
     cd hashstack &&\
     cp examples/proteus.linux2.yaml local.yaml &&\
-    echo "  proteus:" >> local.yaml &&\
     PATH=/usr/bin:$PATH ../hashdist/bin/hit build local.yaml -v
 
 env PATH /home/$NB_USER/notebooks/hashstack/local/bin:$PATH
