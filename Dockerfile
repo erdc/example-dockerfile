@@ -4,10 +4,6 @@ MAINTAINER Andrew Osheroff <andrewosh@gmail.com>
 
 USER root
 
-# Add Julia dependencies
-RUN apt-get update
-RUN apt-get install -y julia libnettle4 && apt-get clean
-
 RUN REPO=http://cdn-fastly.deb.debian.org \
     && echo "deb $REPO/debian jessie main\ndeb $REPO/debian-security jessie/updates main" > /etc/apt/sources.list \
     && apt-get update && apt-get -yq dist-upgrade \
@@ -82,22 +78,20 @@ RUN chown -R $NB_USER:users /home/$NB_USER
 
 USER main
 
-RUN cat /home/$NB_USER/.hashdist/config.yaml && \
-    git clone https://github.com/erdc-cm/proteus && \
-    cd proteus && \
-    make hashdist stack stack/default.yaml && \
-    cd stack && \
-    PATH=/usr/bin:$PATH ../hashdist/bin/hit build default.yaml -v
+RUN git clone https://github.com/hashdist/hashdist -b cekees/add_bld_mirrors &&\
+    git clone https://github.com/hashdist/hashstack -b stable/proteus &&\
+    ./hashdist/bin/hit remote add https://dl.dropboxusercontent.com/u/26353144/hashdist_src --objects="source" &&\
+    ./hashdist/bin/hit remote add https://dl.dropboxusercontent.com/u/26353144/hashdist_jovyan_rackspace --objects="build" &&\
+    cd hashstack &&\
+    cp examples/proteus.linux2.yaml local.yaml &&\
+    echo "  proteus:" >> local.yaml &&\
+    PATH=/usr/bin:$PATH ../hashdist/bin/hit build local.yaml -v
 
-ENV CC mpicc
-ENV CXX mpicxx
-ENV F77 mpif77
-ENV F90 mpif90
-
-RUN cd proteus && PATH=/usr/bin:$PATH which python && PATH=/usr/bin:$PATH make develop
+env PATH /home/$NB_USER/notebooks/hashstack/local/bin:$PATH
+env LD_LIBRARY_PATH /home/$NB_USER/notebooks/hashstack/local/lib:$LD_LIBRARY_PATH
 
 USER root
 
-RUN /home/$NB_USER/notebooks/proteus/linux2/bin/jupyter kernelspec install-self  && jupyter kernelspec list 
+RUN /home/$NB_USER/notebooks/hashstack/local/bin/jupyter kernelspec install-self  && jupyter kernelspec list 
 
 USER main
