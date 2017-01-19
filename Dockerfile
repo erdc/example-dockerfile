@@ -95,3 +95,5 @@ USER root
 RUN /home/$NB_USER/notebooks/hashstack/local/bin/jupyter kernelspec install-self  && jupyter kernelspec list 
 
 USER main
+
+RUN echo "c.NotebookApp.token = ''" >> ${HOME}/.jupyter/jupyter_notebook_config.py
