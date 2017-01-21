@@ -81,7 +81,7 @@ USER main
 RUN git clone https://github.com/hashdist/hashdist -b cekees/add_bld_mirrors &&\
     git clone https://github.com/hashdist/hashstack -b stable/proteus &&\
     ./hashdist/bin/hit remote add https://dl.dropboxusercontent.com/u/26353144/hashdist_src --objects="source" &&\
-    ./hashdist/bin/hit remote add https://dl.dropboxusercontent.com/u/26353144/hashdist_jovyan_rackspace --objects="build" &&\
+    ./hashdist/bin/hit remote add https://dl.dropboxusercontent.com/u/26353144/hashdist_jessie --objects="build" &&\
     cd hashstack &&\
     cp examples/proteus.linux2.yaml local.yaml &&\
     echo "  proteus:" >> local.yaml &&\
