@@ -1,6 +1,6 @@
 # Example Binder with a Dockerfile
 
-[![Binder](http://mybinder.org/badge.svg)](https://beta.mybinder.org/v2/gh/erdc-cm/example-dockerfile/master)
+[![Binder](http://mybinder.org/badge.svg)](https://beta.mybinder.org/v2/gh/erdc/example-dockerfile/master)
 
 A Binder-compatibible repository that contains its own `Dockerfile`.
 
